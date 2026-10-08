@@ -1,0 +1,6 @@
+$kind: http-request
+url: http://127.0.0.1:8080/login?name=chenjing
+method: GET
+queryParams:
+  name: chenjing
+order: 429141499576223
