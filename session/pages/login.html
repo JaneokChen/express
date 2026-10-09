@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录</title>
+  <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+  <div>
+    用户名：<input type="text" id="username">
+    密码：<input type="password" id="pwd">
+    <button onclick="login()">登录</button>
+  </div>
+  <script>
+    function login(){
+      let username= $('#username').val()
+      let pwd = $('#pwd').val()
+
+      $.ajax({
+        url: 'http://127.0.0.1:8080/login',
+        type: 'post', 
+        data: {
+          username: username, 
+          pwd: pwd
+        },
+        success: function (data){
+          console.log(data)
+          if(data.status === 1){
+            window.location.href="index.html"
+          } else {
+            alert(data.msg)
+          }
+        }, 
+        error: function (jqXHR, textStatus, err){
+          console.log(err)
+        }
+      })
+    }
+  </script>
+</body>
+</html>

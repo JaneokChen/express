@@ -1,0 +1,8 @@
+$kind: http-request
+url: http://127.0.0.1:8080/api/userinfo
+method: POST
+body:
+  type: urlencoded
+  content:
+    name: panda
+order: 1950908810864061
