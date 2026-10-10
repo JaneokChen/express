@@ -1,0 +1,6 @@
+$kind: http-request
+url: http://127.0.0.1:8080/getUserInfo
+method: GET
+headers:
+  Authorization: bearer {{json_web_token_0e76}}
+order: 1000

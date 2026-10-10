@@ -1,0 +1,60 @@
+const express = require('express')
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试 JWT</title>
+  <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+  <button onclick="getUserInfo()">获取用户信息</button>
+  <button onclick="login()">登录</button>
+
+  <script>
+
+    // 获取用户信息
+    function getUserInfo(){
+      let token = localStorage.getItem('token')
+      if(token === null){
+        alert('请先登录')
+        return
+      }
+      let tokenStr = `Bearer ${token}` // 需要在 Token 前添加 Bearer 标识
+      $.ajax({
+        url: 'http://127.0.0.1:8080/getUserInfo',
+        type: 'get', 
+        beforeSend: function (xhr){
+          // 添加 Authorization 请求头
+          xhr.setRequestHeader('Authorization', tokenStr)
+        }, 
+        success: function(data){
+          console.log(data);
+        }
+      })
+    }
+
+    // 登录
+    function login(){
+      $.ajax({
+        url: 'http://127.0.0.1:8080/login',
+        type: 'post', 
+        data: {
+          userName: 'chen', 
+          password: '000000'
+        }, 
+        success: function(data){
+          if(data.status === 200){
+            console.log(data.token);
+            // 将 token 存储在 localhost 中
+            localStorage.setItem('token', data.token)
+          }
+        }
+      })
+    }
+  </script>
+  
+</body>
+</html>
